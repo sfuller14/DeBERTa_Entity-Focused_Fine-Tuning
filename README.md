@@ -1,3 +1,3 @@
 # DeBERTa_Entity-Focused_Fine-Tuning
 
-SOTA financial news model. Target is "expert label" (continuous value), not stock price or return. Therefore not very cool. Will prob try to improve before trying to publish.
+SOTA model for modeling fine-grained sentiment expressions in financial news articles. Regression head trained on fine-tuned DeBERTa embeddings. Check out the pdf for more detail. 
