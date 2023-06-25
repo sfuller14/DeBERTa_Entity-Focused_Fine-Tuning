@@ -4,7 +4,7 @@
 
 SOTA model for modeling fine-grained sentiment expressions in financial news articles. Detached CNN-BiLSTM regression head trained on fine-tuned DeBERTa entity embeddings[^1]. Refer to [the PDF](https://github.com/sfuller14/DeBERTa_Entity-Focused_Fine-Tuning/blob/master/Separating_Representation_from_Classification.pdf) for more detail. 
 
-Notebooks include:
+## Notebooks
 * [Base model comparison notebook](https://github.com/sfuller14/DeBERTa_Entity-Focused_Fine-Tuning/blob/master/Fine_Grained_Financial_Sentiment_Regression_with_BERT.ipynb)
   * BERT, RoBERTa, FinBERT, DeBERTa
 * [Main training/experiments notebook with DeBERTa](https://github.com/sfuller14/DeBERTa_Entity-Focused_Fine-Tuning/blob/master/DeBERTa_Entity-Focused_Fine-Tuning.ipynb):
@@ -12,10 +12,11 @@ Notebooks include:
   * Experimentation with NER-based token entity masking strategy
   * Comparison between attached[^2] vs. detached[^3] regression head architectures
 
+## Experiments and Results
 The experiments showed that sentiment regression performance was improved by:
 * Incorporating into the classification model the final hidden states of both the \[CLS\] token _as well as_ the __masked__ target entity token
 * Detaching the classification model from the token-level fine-tuning process
-  * In other words, placing complex architectures within the fine-tuning process _performed worse than_ placing the same complex architecture placed __after__ the standard pooling + dense layer (as in the boilerplate ```transformers.BertForSequenceClassification``` implementation)
+  * In other words, placing complex architectures inside the fine-tuning process _performed worse than_ placing the same complex architecture __after__ the standard (boilerplate ```transformers.BertForSequenceClassification```) pooling + dense layer
   * Intuitively, the error propogation backwards through DeBERTa during training seemed to benefit from a closer/simpler signal, resulting in better inputs for the detached CNN-BiLSTM
 
 The tradeoffs between inference time in production systems and model performance is an interesting area for further research. 
